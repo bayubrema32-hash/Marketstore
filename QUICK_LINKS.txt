@@ -1,0 +1,210 @@
+🌐 STEP 4 TESTING - BROWSER LINKS
+==================================
+
+Buka link berikut di browser untuk testing:
+
+┌─────────────────────────────────────────────────────────┐
+│ 1. SETUP & DEBUGGING                                    │
+└─────────────────────────────────────────────────────────┘
+
+Debug Database & Verify Table Structure:
+🔗 http://localhost/marketstore/debug_orders.php
+
+SQL Script untuk Setup Table (jika perlu):
+📄 c:\xampp\htdocs\marketstore\setup_orders_table.sql
+
+Dokumentasi Testing Lengkap:
+📖 http://localhost/marketstore/STEP4_TESTING.php
+
+
+┌─────────────────────────────────────────────────────────┐
+│ 2. CUSTOMER TESTING                                     │
+└─────────────────────────────────────────────────────────┘
+
+Marketplace Homepage:
+🔗 http://localhost/marketstore/index.php
+
+Shopping Cart:
+🔗 http://localhost/marketstore/cart.php
+
+Checkout:
+🔗 http://localhost/marketstore/checkout.php
+
+Success/Receipt:
+🔗 http://localhost/marketstore/success.php
+
+Customer Orders History:
+🔗 http://localhost/marketstore/user/orders.php
+
+
+┌─────────────────────────────────────────────────────────┐
+│ 3. ADMIN TESTING                                        │
+└─────────────────────────────────────────────────────────┘
+
+Admin Dashboard:
+🔗 http://localhost/marketstore/admin/dashboard.php
+
+Verify Orders (Check total & database):
+🔗 http://localhost/marketstore/admin/verify_orders.php
+
+Test Order Creation:
+🔗 http://localhost/marketstore/admin/test_order.php
+
+View All Orders:
+🔗 http://localhost/marketstore/admin/orders.php
+
+
+┌─────────────────────────────────────────────────────────┐
+│ 4. AUTHENTICATION                                       │
+└─────────────────────────────────────────────────────────┘
+
+Customer Login:
+🔗 http://localhost/marketstore/auth/login.php
+
+Customer Registration:
+🔗 http://localhost/marketstore/auth/registrasi.php
+
+Admin Login:
+🔗 http://localhost/marketstore/admin/auth.php
+
+Logout:
+🔗 http://localhost/marketstore/auth/logout.php
+
+
+┌─────────────────────────────────────────────────────────┐
+│ 5. MONITORING & LOGS                                    │
+└─────────────────────────────────────────────────────────┘
+
+View Checkout Logs:
+📄 c:\xampp\htdocs\marketstore\logs\checkout.log
+   (Atau akses via debug_orders.php)
+
+Database Error Logs:
+📄 C:\xampp\apache\logs\error.log
+📄 C:\xampp\php\php_errors.log
+
+
+═══════════════════════════════════════════════════════════
+
+⚡ QUICK START TESTING SEQUENCE:
+
+1. 🔍 VERIFY DATABASE:
+   → Buka: debug_orders.php
+   → Cek: "✅ Database connected successfully"
+   → Cek: Tables structure OK
+
+2. 🔐 LOGIN CUSTOMER:
+   → Buka: auth/login.php
+   → Login atau register
+   → Redirect ke index.php
+
+3. 🛒 ADD TO CART:
+   → Buka: index.php
+   → Pilih product
+   → Klik "Tambah ke Keranjang"
+   → Cek navbar (badge count)
+
+4. 💳 CHECKOUT:
+   → Buka: cart.php
+   → Verifikasi subtotal & total
+   → Klik "Checkout"
+   → Isi form lengkap
+   → Pilih kurir & payment
+   → Klik "Buat Pesanan"
+
+5. ✅ VERIFY SUCCESS:
+   → Harus redirect ke success.php
+   → Muncul Order ID & details
+   → Catat Order ID
+
+6. 🔍 DATABASE CHECK:
+   → Buka: debug_orders.php
+   → Lihat "Recent Orders"
+   → Verifikasi order muncul
+   → Verifikasi total terisi
+
+7. 👨‍💼 ADMIN VERIFY:
+   → Buka: admin/verify_orders.php
+   → Lihat statistik
+   → Lihat order terbaru
+
+
+═══════════════════════════════════════════════════════════
+
+📋 FORM DATA YANG VALID UNTUK TESTING:
+
+Nama: John Doe
+Telepon: 08123456789
+Alamat: Jalan Merdeka No 123, Kota Jakarta
+Provinsi: DKI Jakarta
+Kota: Jakarta Pusat
+Kode Pos: 12190
+Kurir: JNE
+Payment: Transfer
+
+(Ubah sesuai kebutuhan, tapi pastikan format valid)
+
+
+═══════════════════════════════════════════════════════════
+
+🎯 SUCCESS CRITERIA:
+
+Semua ini harus ✅:
+
+Order Creation:
+✅ Success page muncul
+✅ Order ID ditampilkan
+✅ Cart dikosongkan
+
+Database:
+✅ Order ada di orders table
+✅ Total > 0 (bukan NULL)
+✅ Status = pending/processing
+
+Items:
+✅ Order items ada di order_items table
+✅ Price tersimpan dengan benar
+✅ Quantity tersimpan dengan benar
+
+Stock:
+✅ Stock produk berkurang
+
+Admin:
+✅ Order muncul di admin/verify_orders.php
+✅ Order muncul di admin/orders.php
+
+
+═══════════════════════════════════════════════════════════
+
+❓ FREQUENTLY ASKED QUESTIONS:
+
+Q: Bagaimana jika total = NULL di database?
+A: Perbaiki checkout_process.php line 31 & 172
+   Ubah (int) → (float)
+
+Q: Bagaimana jika order tidak ada sama sekali?
+A: Buka debug_orders.php
+   Klik "Test Insert Order" untuk verify database
+   Cek error message
+
+Q: Dimana melihat logs?
+A: File: c:\xampp\htdocs\marketstore\logs\checkout.log
+
+Q: Bagaimana jika order stuck/error?
+A: Cek di debug_orders.php
+   Database connection OK?
+   Tables ada?
+   Constraints OK?
+
+
+═══════════════════════════════════════════════════════════
+
+🚀 NEXT STEPS SETELAH TESTING BERHASIL:
+
+1. Cleanup test data (optional)
+2. Production deployment
+3. Setup payment gateway
+4. Setup email notifications
+5. Setup order tracking system
+
+SELAMAT TESTING! 🎉
